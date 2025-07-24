@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+// Make sure Note class is defined in this path or fix the import path
+import 'package:flutter_application_1/screens/models/notes.dart';
 
 class NotesScreen extends StatefulWidget {
   const NotesScreen({super.key});
@@ -10,39 +12,57 @@ class NotesScreen extends StatefulWidget {
 class _NotesScreenState extends State<NotesScreen> {
   TextEditingController titleTxtCntrl = TextEditingController();
   TextEditingController descTxtCntrl = TextEditingController();
+  List<Note> notes = [];
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold( appBar: AppBar( title: const Text('Notes App')),
+    return Scaffold(
+      appBar: AppBar(title: Text('Notes App')),
       body: Column(
         children: [
-          // Input Title
+          // add
           TextField(
             controller: titleTxtCntrl,
-            decoration: const InputDecoration(
+            decoration: InputDecoration(
               hintText: 'Enter title',
               labelText: 'Title',
             ),
           ),
-          // Input Description (optional)
           TextField(
             controller: descTxtCntrl,
-            decoration: const InputDecoration(
-              hintText: 'Enter description',
+            decoration: InputDecoration(
+              hintText: 'Enter Description',
               labelText: 'Description',
             ),
           ),
-          ElevatedButton(onPressed: () {}, child:  Text('Add')),
-          // Add More Widgets as needed
+          ElevatedButton(
+            onPressed: () {
+              // add logic
+              if (titleTxtCntrl.text.isNotEmpty &&
+                  descTxtCntrl.text.isNotEmpty) {
+                notes.add(
+                  Note(
+                    title: titleTxtCntrl.text,
+                    description: descTxtCntrl.text,
+                  ),
+                );
+                setState(() {});
+              } else {}
+            },
+            child: Text('Add'),
+          ),
+          // display
           Expanded(
-          child: ListView.builder(
-            itemCount: 5,
-            itemBuilder: (context,index) => ListTile(title: Text('title'),
-            subtitle: Text('description'),
-            trailing: Icon(Icons.delete),
+            child: ListView.builder(
+              itemCount: notes.length,
+              itemBuilder:
+                  (context, index) => ListTile(
+                    title: Text('${notes[index].title}'),
+                    subtitle: Text('${notes[index].description}'),
+                    trailing: Icon(Icons.delete),
+                  ),
+            ),
           ),
-          ),
-          )
         ],
       ),
     );
