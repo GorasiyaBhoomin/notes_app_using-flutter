@@ -32,7 +32,17 @@ class _NotesScreenState extends State<NotesScreen> {
               labelText: 'Description',
             ),
           ),
+          ElevatedButton(onPressed: () {}, child:  Text('Add')),
           // Add More Widgets as needed
+          Expanded(
+          child: ListView.builder(
+            itemCount: 5,
+            itemBuilder: (context,index) => ListTile(title: Text('title'),
+            subtitle: Text('description'),
+            trailing: Icon(Icons.delete),
+          ),
+          ),
+          )
         ],
       ),
     );
