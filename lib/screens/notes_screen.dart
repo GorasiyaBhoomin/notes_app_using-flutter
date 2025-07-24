@@ -42,10 +42,13 @@ class _NotesScreenState extends State<NotesScreen> {
                   descTxtCntrl.text.isNotEmpty) {
                 notes.add(
                   Note(
+                    id: DateTime.now().toIso8601String(),
                     title: titleTxtCntrl.text,
                     description: descTxtCntrl.text,
                   ),
                 );
+                titleTxtCntrl.clear();
+                descTxtCntrl.clear();
                 setState(() {});
               } else {}
             },
